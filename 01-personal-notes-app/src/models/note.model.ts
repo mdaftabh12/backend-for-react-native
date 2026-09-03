@@ -5,6 +5,7 @@ interface INote {
   description: string;
   date: Date;
   isStar: boolean;
+  isDisabled: boolean;
 }
 
 const noteSchema = new mongoose.Schema<INote>(
@@ -28,10 +29,14 @@ const noteSchema = new mongoose.Schema<INote>(
       type: Boolean,
       default: false,
     },
+    isDisabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Note = mongoose.model<INote>("Note", noteSchema);
