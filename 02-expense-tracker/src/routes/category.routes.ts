@@ -11,18 +11,18 @@ import {
 const router = Router();
 
 // Create category
-router.post("/", createCategory);
+router.post("/create-category", createCategory);
 
 // Get all categories
-router.get("/", getAllCategories);
+router.get("/get-all-categories", getAllCategories);
 
 // Get single category
-router.get("/:categoryId", getCategoryById);
+router.get("/get-category/:categoryId", getCategoryById);
 
 // Update category
-router.put("/:categoryId", updateCategory);
+router.put("/update-category/:categoryId", updateCategory);
 
 // Delete category
-router.delete("/:categoryId", deleteCategory);
+router.delete("/delete-category/:categoryId", deleteCategory);
 
 export default router;
