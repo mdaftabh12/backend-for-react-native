@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import env from "./config/env";
 import authRoutes from "./routes/auth.routes";
 import { errorMiddleware } from "./middleware/error.middleware";
+import userRoutes from "./routes/user.routes";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 
 // API routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", userRoutes);
 
 // Error middleware must be registered after all routes.
 app.use(errorMiddleware);
