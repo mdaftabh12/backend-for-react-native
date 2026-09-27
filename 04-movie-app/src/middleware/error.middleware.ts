@@ -9,37 +9,36 @@ const errorMiddleware = (
   res: Response,
   next: NextFunction,
 ): void => {
-  console.error(err);
-
-  // Handle Zod validation errors
+  // Zod validation error
   if (err instanceof ZodError) {
+    const firstError = err.issues[0];
+
     res.status(400).json({
       success: false,
-      message: "Validation failed",
-      errors: err.issues,
+      message: firstError?.message ?? "Validation failed",
       data: null,
     });
 
     return;
   }
 
-  // Handle custom application errors
+  // Custom ApiError
   if (err instanceof ApiError) {
     res.status(err.statusCode).json({
       success: err.success,
       message: err.message,
-      errors: err.errors,
       data: err.data,
     });
 
     return;
   }
 
-  // Handle unknown/unexpected errors
+  // Unknown error
+  console.error(err);
+
   res.status(500).json({
     success: false,
     message: "Internal server error",
-    errors: [],
     data: null,
   });
 };

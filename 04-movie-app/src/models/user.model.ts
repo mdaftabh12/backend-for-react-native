@@ -9,6 +9,7 @@ export interface IUser extends Document {
   avatar?: string;
   role: Role;
   isDisabled: boolean;
+  refreshToken?: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -49,6 +50,11 @@ const userSchema = new Schema<IUser>(
     isDisabled: {
       type: Boolean,
       default: false,
+    },
+    refreshToken: {
+      type: String,
+      default: null,
+      select: false,
     },
   },
   {

@@ -1,18 +1,49 @@
 import { Router } from "express";
 
-import { authMiddleware } from "../middleware/auth.middleware";
+import {
+  getCurrentUser,
+  getAllUsers,
+  updateUserProfile,
+  toggleUserStatus,
+  userDelete,
+} from "../controllers/user.controller";
+
+import { authMiddleware, authorizeRoles } from "../middleware/auth.middleware";
 import { validate } from "../middleware/validate.middleware";
-
-import { getUser, updateUser } from "../controllers/user.controller";
-
+import { upload } from "../middleware/multer.middleware";
 import { updateUserSchema } from "../validations/user.validation";
 
 const router = Router();
 
-router.use(authMiddleware);
+// --------------------------------
+// Current User
+// --------------------------------
+router.get("/profile", authMiddleware, getCurrentUser);
 
-router.get("/me", getUser);
+// --------------------------------
+// Update Profile
+// --------------------------------
+router.put(
+  "/update-profile",
+  authMiddleware,
+  upload.single("avatar"),
+  validate(updateUserSchema),
+  updateUserProfile,
+);
 
-router.patch("/me", validate(updateUserSchema), updateUser);
+// --------------------------------
+// Disable / Enable Own Account
+// --------------------------------
+router.put("/toggle-status", authMiddleware, toggleUserStatus);
 
-export default router;
+// --------------------------------
+// Delete Own Account
+// --------------------------------
+router.delete("/me", authMiddleware, userDelete);
+
+// --------------------------------
+// Admin - Get All Users
+// --------------------------------
+router.get("/", authMiddleware, authorizeRoles("ADMIN"), getAllUsers);
+
+export { router as userRouter };

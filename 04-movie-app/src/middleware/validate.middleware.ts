@@ -13,9 +13,14 @@ const validate = (schema: ZodType): RequestHandler => {
       return next(result.error);
     }
 
+    // Replace validated body
     req.body = result.data.body;
+
+    // Replace validated params
     req.params = result.data.params;
-    req.query = result.data.query;
+
+    // DO NOT assign req.query
+    // Express 5 req.query is getter-only
 
     next();
   };

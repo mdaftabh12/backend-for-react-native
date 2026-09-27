@@ -19,6 +19,11 @@ const env = {
     refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET || "",
     refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || "7d",
   },
+
+  admin: {
+    adminEmail: process.env.ADMIN_EMAIL,
+    adminPassword: process.env.ADMIN_PASSWORD,
+  },
 } as const;
 
 // Required environment variables
@@ -32,6 +37,14 @@ if (!env.jwt.accessTokenSecret) {
 
 if (!env.jwt.refreshTokenSecret) {
   throw new Error("REFRESH_TOKEN_SECRET is not defined");
+}
+
+if (!env.admin.adminEmail) {
+  throw new Error("Admin email is not defined");
+}
+
+if (!env.admin.adminPassword) {
+  throw new Error("Admin password is not defined");
 }
 
 export default env;

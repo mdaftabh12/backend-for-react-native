@@ -11,11 +11,9 @@ const updateUserSchema = z.object({
     email: z
       .string()
       .trim()
-      .email("Invalid email address")
+      .email("Please enter a valid email address")
       .toLowerCase()
       .optional(),
-
-    avatar: z.string().trim().optional(),
   }),
 
   params: z.object({}),
