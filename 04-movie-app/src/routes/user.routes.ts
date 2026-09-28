@@ -39,11 +39,11 @@ router.put("/toggle-status", authMiddleware, toggleUserStatus);
 // --------------------------------
 // Delete Own Account
 // --------------------------------
-router.delete("/me", authMiddleware, userDelete);
+router.delete("/delete-user", authMiddleware, userDelete);
 
 // --------------------------------
 // Admin - Get All Users
 // --------------------------------
-router.get("/", authMiddleware, authorizeRoles("ADMIN"), getAllUsers);
+router.get("/get-users", authMiddleware, authorizeRoles("ADMIN"), getAllUsers);
 
 export { router as userRouter };

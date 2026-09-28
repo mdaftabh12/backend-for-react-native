@@ -4,7 +4,7 @@ export interface IMovie extends Document {
   title: string;
   thumbnail: string;
   video: string[];
-  rating: number;
+  rating?: number;
   year: number;
   duration: string;
   description: string;
@@ -38,6 +38,7 @@ const movieSchema = new Schema<IMovie>(
     rating: {
       type: Number,
       required: true,
+      default: 0,
       min: 0,
       max: 10,
     },

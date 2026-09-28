@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface ICategory extends Document {
   name: string;
-  isDisabled: boolean;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -14,15 +14,18 @@ const categorySchema = new Schema<ICategory>(
       required: true,
       trim: true,
       unique: true,
+      minlength: 2,
+      maxlength: 20,
     },
 
-    isDisabled: {
+    isActive: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 
