@@ -12,23 +12,32 @@ export interface IReview extends Document {
 const reviewSchema = new Schema<IReview>(
   {
     userId: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     movieId: {
-      type: mongoose.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Movie",
+      required: true,
     },
     rating: {
       type: Number,
-      default: 1,
+      required: true,
+      min: 1,
+      max: 5,
     },
     comment: {
       type: String,
+      trim: true,
+      maxlength: 1000,
     },
   },
   { timestamps: true },
 );
+
+// One review per user per movie
+reviewSchema.index({ userId: 1, movieId: 1 }, { unique: true });
 
 const Review = mongoose.model<IReview>("Review", reviewSchema);
 

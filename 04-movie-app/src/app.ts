@@ -8,6 +8,10 @@ import { authRouter } from "./routes/auth.routes";
 import { userRouter } from "./routes/user.routes";
 import { categoryRouter } from "./routes/category.routes";
 import { movieRouter } from "./routes/movie.routes";
+import { favoriteRouter } from "./routes/favorite.routes";
+import { watchlistRouter } from "./routes/watchlist.routes";
+import { reviewRouter } from "./routes/review.routes";
+
 
 const app = express();
 
@@ -39,6 +43,9 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/categories", categoryRouter);
 app.use("/api/v1/movies", movieRouter);
+app.use("/api/v1/favorites", favoriteRouter);
+app.use("/api/v1/watchlist", watchlistRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 // Error middleware must be registered after all routes.
 app.use(errorMiddleware);
